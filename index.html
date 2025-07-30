@@ -1,54 +1,77 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Animasyonlu Flipbook</title>
-<style>
-  body {
-    background: #222;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  #flipbook {
-    width: 600px;
-    height: 800px;
-  }
-  #flipbook .page {
-    width: 300px;
-    height: 800px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  }
-  #flipbook img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Animasyonlu Flipbook</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: #222;
+      overflow: hidden;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #flipbook {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #flipbook .page {
+      width: 50vw; /* iki sayfa yan yana 100vw */
+      height: 100vh;
+      background: black;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    #flipbook img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
-<div id="flipbook">
-  <div class="page"><img src="images/page1.png" alt="Sayfa 1"></div>
-  <div class="page"><img src="images/page2.png" alt="Sayfa 2"></div>
-  <div class="page"><img src="images/page3.png" alt="Sayfa 3"></div>
-  <div class="page"><img src="images/page4.png" alt="Sayfa 4"></div>
+<div id="container">
+  <div id="flipbook">
+    <div class="page"><img src="images/page1.png" alt="Sayfa 1"></div>
+    <div class="page"><img src="images/page2.png" alt="Sayfa 2"></div>
+    <div class="page"><img src="images/page3.png" alt="Sayfa 3"></div>
+    <div class="page"><img src="images/page4.png" alt="Sayfa 4"></div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
 <script>
-  $("#flipbook").turn({
-    width: 600,
-    height: 800,
+  const flipbook = $("#flipbook");
+
+  flipbook.turn({
+    width: window.innerWidth,
+    height: window.innerHeight,
     autoCenter: true,
     duration: 1000
+  });
+
+  // Yeniden boyutlandırma olursa flipbook boyutunu güncelle
+  window.addEventListener('resize', () => {
+    flipbook.turn('size', window.innerWidth, window.innerHeight);
   });
 </script>
 
